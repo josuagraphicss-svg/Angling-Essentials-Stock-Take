@@ -1,641 +1,505 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
-
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Angling Essentials Stock Take</title>
 
-<style>
-
-*{
-  box-sizing:border-box;
-}
-
-body{
-  margin:0;
-  font-family:Arial,sans-serif;
-  background:#f3f5f7;
-  color:#17202a;
-}
-
-.app{
-  max-width:600px;
-  margin:auto;
-  padding:18px;
-}
-
-.header{
-  background:#111827;
-  color:white;
-  padding:22px;
-  border-radius:18px;
-  margin-bottom:16px;
-}
-
-.header h1{
-  margin:0;
-  font-size:25px;
-}
-
-.header p{
-  margin:6px 0 0;
-  opacity:.75;
-}
-
-.scan-button{
-  width:100%;
-  min-height:150px;
-  border:0;
-  border-radius:20px;
-  background:white;
-  box-shadow:0 4px 15px rgba(0,0,0,.08);
-  font-size:21px;
-  font-weight:bold;
-}
-
-.scan-icon{
-  font-size:55px;
-  display:block;
-  margin-bottom:10px;
-}
-
-.scanner{
-  display:none;
-  margin-top:16px;
-  background:#111827;
-  padding:14px;
-  border-radius:20px;
-  color:white;
-}
-
-#camera{
-  width:100%;
-  min-height:260px;
-  border-radius:14px;
-  background:#000;
-  display:block;
-  object-fit:cover;
-}
-
-.scanner-title{
-  font-size:20px;
-  font-weight:bold;
-  margin-bottom:10px;
-}
-
-.status{
-  margin-top:12px;
-  padding:14px;
-  border-radius:10px;
-  background:#eef2f7;
-  color:#17202a;
-  font-size:15px;
-}
-
-.close-button{
-  width:100%;
-  margin-top:10px;
-  padding:15px;
-  border:0;
-  border-radius:12px;
-  font-size:16px;
-  font-weight:bold;
-}
-
-.manual{
-  margin-top:14px;
-  background:white;
-  padding:18px;
-  border-radius:16px;
-  box-shadow:0 3px 12px rgba(0,0,0,.06);
-}
-
-.manual h3{
-  margin-top:0;
-}
-
-.manual input{
-  width:100%;
-  padding:14px;
-  border:1px solid #ccc;
-  border-radius:10px;
-  font-size:17px;
-  margin-bottom:10px;
-}
-
-.manual button{
-  width:100%;
-  padding:14px;
-  border:0;
-  border-radius:10px;
-  background:#111827;
-  color:white;
-  font-size:16px;
-  font-weight:bold;
-}
-
-.product{
-  display:none;
-  margin-top:14px;
-  background:white;
-  padding:18px;
-  border-radius:16px;
-  box-shadow:0 3px 12px rgba(0,0,0,.06);
-}
-
-.product h2{
-  margin-top:0;
-}
-
-.stock-box{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-  margin-top:12px;
-}
-
-.stock{
-  padding:15px;
-  border-radius:12px;
-  background:#f3f5f7;
-  text-align:center;
-}
-
-.stock strong{
-  display:block;
-  font-size:25px;
-  margin-top:5px;
-}
-
-.quantity{
-  margin-top:12px;
-}
-
-.quantity label{
-  display:block;
-  font-weight:bold;
-  margin-bottom:6px;
-}
-
-.quantity input{
-  width:100%;
-  padding:14px;
-  border:1px solid #ccc;
-  border-radius:10px;
-  font-size:20px;
-  text-align:center;
-}
-
-.save-button{
-  width:100%;
-  margin-top:12px;
-  padding:15px;
-  border:0;
-  border-radius:12px;
-  background:#111827;
-  color:white;
-  font-size:17px;
-  font-weight:bold;
-}
-
-.cards{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
-  margin-top:14px;
-}
-
-.card{
-  background:white;
-  padding:18px;
-  border-radius:16px;
-  text-align:center;
-  box-shadow:0 3px 12px rgba(0,0,0,.06);
-}
-
-.card-icon{
-  font-size:30px;
-}
-
-.card strong{
-  display:block;
-  margin-top:7px;
-  font-size:16px;
-}
-
-.summary{
-  margin-top:14px;
-  background:white;
-  padding:18px;
-  border-radius:16px;
-  box-shadow:0 3px 12px rgba(0,0,0,.06);
-}
-
-.summary h2{
-  margin-top:0;
-  font-size:20px;
-}
-
-@media(max-width:400px){
-
-  .app{
-    padding:12px;
-  }
-
-  .header h1{
-    font-size:22px;
-  }
-
-}
-
-</style>
-
 <script src="https://unpkg.com/@zxing/browser@0.1.5/umd/zxing-browser.min.js"></script>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f1f3f7;
+  color: #111827;
+}
+
+.container {
+  width: 100%;
+  max-width: 850px;
+  margin: auto;
+  padding: 18px;
+}
+
+.header {
+  background: #111827;
+  color: white;
+  border-radius: 28px;
+  padding: 28px 20px;
+  text-align: center;
+  margin-bottom: 18px;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 32px;
+}
+
+.header p {
+  margin: 8px 0 0;
+  color: #cbd5e1;
+  font-size: 20px;
+}
+
+.card {
+  background: white;
+  border-radius: 28px;
+  padding: 24px;
+  margin-bottom: 18px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+}
+
+.scan-button {
+  width: 100%;
+  border: 0;
+  border-radius: 25px;
+  background: #111827;
+  color: white;
+  padding: 25px 15px;
+  font-size: 27px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.scan-button:active {
+  transform: scale(0.98);
+}
+
+.camera-icon {
+  font-size: 55px;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.section-title {
+  font-size: 25px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+input {
+  width: 100%;
+  padding: 18px;
+  border: 2px solid #d1d5db;
+  border-radius: 18px;
+  font-size: 20px;
+  margin-bottom: 12px;
+}
+
+button {
+  cursor: pointer;
+}
+
+.find-button,
+.save-button {
+  width: 100%;
+  padding: 17px;
+  border: 0;
+  border-radius: 18px;
+  background: #111827;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.scanner-box {
+  display: none;
+  background: #000;
+  border-radius: 22px;
+  overflow: hidden;
+  margin-top: 18px;
+  position: relative;
+}
+
+#scannerVideo {
+  width: 100%;
+  display: block;
+  min-height: 280px;
+  object-fit: cover;
+}
+
+.stop-button {
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
+  right: 15px;
+  padding: 14px;
+  border: 0;
+  border-radius: 14px;
+  background: white;
+  color: #111827;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.status {
+  background: #eef2f7;
+  border-radius: 18px;
+  padding: 16px;
+  margin-top: 15px;
+  font-size: 18px;
+}
+
+.product {
+  display: none;
+}
+
+.product-name {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.barcode {
+  color: #64748b;
+  margin-bottom: 20px;
+  font-size: 17px;
+}
+
+.stock-box {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.stock-item {
+  background: #f1f5f9;
+  border-radius: 20px;
+  padding: 18px;
+  text-align: center;
+}
+
+.stock-label {
+  font-size: 15px;
+  color: #64748b;
+  margin-bottom: 8px;
+}
+
+.stock-number {
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.variance {
+  padding: 16px;
+  border-radius: 18px;
+  background: #f1f5f9;
+  margin-bottom: 15px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.summary-box {
+  background: #f1f5f9;
+  border-radius: 20px;
+  padding: 20px;
+  text-align: center;
+}
+
+.summary-number {
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.summary-label {
+  color: #64748b;
+  margin-top: 5px;
+}
+
+.error {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.success {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.warning {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.history {
+  margin-top: 15px;
+}
+
+.history-item {
+  background: #f8fafc;
+  border-radius: 16px;
+  padding: 14px;
+  margin-bottom: 10px;
+}
+
+.history-name {
+  font-weight: bold;
+}
+
+.history-details {
+  color: #64748b;
+  margin-top: 5px;
+}
+
+.small-button {
+  margin-top: 10px;
+  border: 0;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: #e2e8f0;
+  font-weight: bold;
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 12px;
+  }
+
+  .header h1 {
+    font-size: 27px;
+  }
+
+  .header p {
+    font-size: 18px;
+  }
+
+  .stock-box,
+  .summary-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+</style>
 </head>
 
 <body>
 
-<div class="app">
+<div class="container">
 
   <div class="header">
-
     <h1>🎣 Angling Essentials</h1>
-
-    <p>Stock Take System — Version 3</p>
-
+    <p>Stock Take System — Version 4</p>
   </div>
 
-
-  <button
-    class="scan-button"
-    id="scanButton"
-    type="button">
-
-    <span class="scan-icon">📷</span>
-
-    SCAN ITEM
-
-    <small style="
-      display:block;
-      margin-top:8px;
-      font-size:13px;
-      font-weight:normal;
-      color:#667085">
-
-      Scan a product barcode
-
-    </small>
-
-  </button>
-
-
-  <div
-    class="scanner"
-    id="scanner">
-
-    <div class="scanner-title">
-
-      📷 Scan Barcode
-
-    </div>
-
-    <video
-      id="camera"
-      autoplay
-      muted
-      playsinline>
-    </video>
-
-    <div
-      class="status"
-      id="scanStatus">
-
-      Camera is ready.
-
-    </div>
-
-    <button
-      class="close-button"
-      id="closeScanner"
-      type="button">
-
-      ✕ Close Scanner
-
+  <div class="card">
+    <button class="scan-button" onclick="startScanner()">
+      <span class="camera-icon">📷</span>
+      SCAN ITEM
+      <div style="font-size:17px;font-weight:normal;margin-top:8px;">
+        Scan a product barcode
+      </div>
     </button>
 
+    <div class="scanner-box" id="scannerBox">
+      <video id="scannerVideo" autoplay muted playsinline></video>
+      <button class="stop-button" onclick="stopScanner()">STOP SCANNER</button>
+    </div>
+
+    <div id="scannerStatus" class="status" style="display:none;"></div>
   </div>
 
+  <div class="card">
 
-  <div class="manual">
-
-    <h3>⌨️ Manual Barcode</h3>
+    <div class="section-title">⌨️ Manual Barcode</div>
 
     <input
-      id="barcodeInput"
+      id="manualBarcode"
       type="text"
-      placeholder="Enter barcode manually">
+      placeholder="Enter barcode manually"
+      autocomplete="off"
+    >
 
-    <button
-      id="manualButton"
-      type="button">
-
+    <button class="find-button" onclick="manualLookup()">
       FIND PRODUCT
-
     </button>
 
-    <div
-      class="status"
-      id="result">
-
+    <div id="lookupStatus" class="status">
       No product scanned yet.
-
     </div>
 
   </div>
 
+  <div class="card product" id="productCard">
 
-  <div
-    class="product"
-    id="productCard">
+    <div class="section-title">📦 Product</div>
 
-    <h2 id="productName">
-      Product
-    </h2>
+    <div class="product-name" id="productName">
+      -
+    </div>
 
-    <p id="productBarcode"></p>
+    <div class="barcode">
+      Barcode: <strong id="productBarcode">-</strong>
+    </div>
 
     <div class="stock-box">
 
-      <div class="stock">
-
-        Website Stock
-
-        <strong id="websiteStock">
-          --
-        </strong>
-
+      <div class="stock-item">
+        <div class="stock-label">WEBSITE STOCK</div>
+        <div class="stock-number" id="websiteStock">-</div>
       </div>
 
-      <div class="stock">
-
-        Physical Count
-
-        <strong id="physicalDisplay">
-          --
-        </strong>
-
+      <div class="stock-item">
+        <div class="stock-label">PHYSICAL COUNT</div>
+        <div class="stock-number" id="physicalDisplay">-</div>
       </div>
 
     </div>
 
-
-    <div class="quantity">
-
-      <label for="physicalCount">
-        Enter Physical Count
-      </label>
-
-      <input
-        id="physicalCount"
-        type="number"
-        min="0"
-        inputmode="numeric"
-        placeholder="0">
-
+    <div class="section-title" style="font-size:20px;">
+      Physical Count
     </div>
 
+    <input
+      id="physicalCount"
+      type="number"
+      min="0"
+      placeholder="Enter physical quantity"
+    >
 
-    <button
-      class="save-button"
-      id="saveCount"
-      type="button">
+    <div class="variance" id="varianceBox">
+      Variance: -
+    </div>
 
+    <button class="save-button" onclick="saveStockCount()">
       💾 SAVE STOCK COUNT
-
     </button>
 
   </div>
 
+  <div class="card">
 
-  <div class="cards">
+    <div class="section-title">📦 Stock Take</div>
 
-    <div class="card">
+    <div class="summary-grid">
 
-      <div class="card-icon">📦</div>
+      <div class="summary-box">
+        <div class="summary-number" id="totalItems">0</div>
+        <div class="summary-label">Items Counted</div>
+      </div>
 
-      <strong>Stock Take</strong>
-
-      <span id="itemCount">
-        0 items
-      </span>
-
-    </div>
-
-
-    <div class="card">
-
-      <div class="card-icon">⚠️</div>
-
-      <strong>Variances</strong>
-
-      <span id="varianceCount">
-        0 items
-      </span>
+      <div class="summary-box">
+        <div class="summary-number" id="totalVariances">0</div>
+        <div class="summary-label">Variances</div>
+      </div>
 
     </div>
 
   </div>
 
+  <div class="card">
 
-  <div class="summary">
+    <div class="section-title">📊 Stock Take Summary</div>
 
-    <h2>
-      📊 Stock Take Summary
-    </h2>
-
-    <p>
-      Items scanned:
-      <strong id="scannedCount">0</strong>
-    </p>
-
-    <p>
-      Items matching:
-      <strong id="matchingCount">0</strong>
-    </p>
-
-    <p>
-      Items with differences:
-      <strong id="differenceCount">0</strong>
-    </p>
+    <div id="history">
+      No items counted yet.
+    </div>
 
   </div>
 
 </div>
 
-
 <script>
 
-let scannerControls = null;
+const API_URL =
+  "https://angling-essentials-stock-api.josua-graphicss.workers.dev/";
+
+let reader = null;
+let currentControls = null;
+let currentBarcode = "";
+let currentProduct = null;
 
 let scannedItems = [];
 
-let currentBarcode = "";
+function showStatus(message, type = "") {
+  const box = document.getElementById("lookupStatus");
 
+  box.className = "status " + type;
+  box.innerHTML = message;
+}
 
-const scanButton =
-  document.getElementById("scanButton");
+function showScannerStatus(message, type = "") {
+  const box = document.getElementById("scannerStatus");
 
-const scanner =
-  document.getElementById("scanner");
+  box.style.display = "block";
+  box.className = "status " + type;
+  box.innerHTML = message;
+}
 
-const camera =
-  document.getElementById("camera");
+async function startScanner() {
 
-const closeScanner =
-  document.getElementById("closeScanner");
+  try {
 
-const scanStatus =
-  document.getElementById("scanStatus");
+    document.getElementById("scannerBox").style.display = "block";
 
-const barcodeInput =
-  document.getElementById("barcodeInput");
+    showScannerStatus(
+      "📷 Starting camera...",
+      ""
+    );
 
-const manualButton =
-  document.getElementById("manualButton");
-
-const result =
-  document.getElementById("result");
-
-const productCard =
-  document.getElementById("productCard");
-
-const productName =
-  document.getElementById("productName");
-
-const productBarcode =
-  document.getElementById("productBarcode");
-
-const websiteStock =
-  document.getElementById("websiteStock");
-
-const physicalCount =
-  document.getElementById("physicalCount");
-
-const physicalDisplay =
-  document.getElementById("physicalDisplay");
-
-const saveCount =
-  document.getElementById("saveCount");
-
-const itemCount =
-  document.getElementById("itemCount");
-
-const varianceCount =
-  document.getElementById("varianceCount");
-
-const scannedCount =
-  document.getElementById("scannedCount");
-
-const matchingCount =
-  document.getElementById("matchingCount");
-
-const differenceCount =
-  document.getElementById("differenceCount");
-
-
-async function startScanner(){
-
-  scanner.style.display = "block";
-
-  scanStatus.textContent =
-    "Checking camera...";
-
-  if(!window.ZXingBrowser){
-
-    scanStatus.textContent =
-      "Scanner library did not load. Check your internet connection.";
-
-    return;
-
-  }
-
-  try{
-
-    const reader =
-      new ZXingBrowser.BrowserMultiFormatReader();
-
-
-    scanStatus.textContent =
-      "Requesting camera permission...";
-
-
-    const devices =
-      await ZXingBrowser.BrowserCodeReader
-        .listVideoInputDevices();
-
-
-    if(!devices || devices.length === 0){
-
-      throw new Error(
-        "No camera found"
-      );
-
+    if (!window.ZXingBrowser) {
+      throw new Error("Scanner library failed to load.");
     }
 
+    reader = new ZXingBrowser.BrowserMultiFormatReader();
 
-    let selectedDevice =
-      devices[0];
+    const videoInputDevices =
+      await ZXingBrowser.BrowserCodeReader.listVideoInputDevices();
 
+    if (!videoInputDevices.length) {
+      throw new Error("No camera found.");
+    }
 
-    for(const device of devices){
+    let selectedDevice = videoInputDevices[0];
+
+    for (const device of videoInputDevices) {
 
       const label =
         (device.label || "").toLowerCase();
 
-      if(
+      if (
         label.includes("back") ||
         label.includes("rear") ||
         label.includes("environment")
-      ){
-
-        selectedDevice =
-          device;
-
+      ) {
+        selectedDevice = device;
         break;
-
       }
 
     }
 
+    showScannerStatus(
+      "📷 Point the camera at the barcode...",
+      ""
+    );
 
-    scanStatus.textContent =
-      "Starting camera...";
-
-
-    scannerControls =
+    currentControls =
       await reader.decodeFromVideoDevice(
         selectedDevice.deviceId,
-        camera,
-        (resultCode,error) => {
+        "scannerVideo",
+        async (result, error) => {
 
-          if(resultCode){
+          if (result) {
 
             const code =
-              resultCode.getText();
+              result.getText().trim();
 
-            if(code){
-
-              scanStatus.textContent =
-                "Barcode found!";
+            if (code) {
 
               stopScanner();
 
-              handleBarcode(code);
-
+              await handleBarcode(code);
             }
 
           }
@@ -643,342 +507,380 @@ async function startScanner(){
         }
       );
 
-
-    scanStatus.textContent =
-      "Point the camera at the barcode.";
-
-  }
-  catch(error){
+  } catch (error) {
 
     console.error(error);
 
-    let message =
-      "Camera could not start.";
-
-    if(
-      error &&
-      error.name ===
-      "NotAllowedError"
-    ){
-
-      message =
-        "Camera permission was denied. Please allow camera access in Chrome settings.";
-
-    }
-    else if(
-      error &&
-      error.name ===
-      "NotFoundError"
-    ){
-
-      message =
-        "No camera was found on this device.";
-
-    }
-    else if(
-      error &&
-      error.name ===
-      "NotReadableError"
-    ){
-
-      message =
-        "The camera is already being used by another app.";
-
-    }
-    else if(error && error.message){
-
-      message =
-        "Camera error: " +
-        error.message;
-
-    }
-
-    scanStatus.textContent =
-      message;
-
-  }
-
-}
-
-
-function stopScanner(){
-
-  if(scannerControls){
-
-    try{
-
-      scannerControls.stop();
-
-    }
-    catch(error){
-
-      console.log(error);
-
-    }
-
-    scannerControls =
-      null;
-
-  }
-
-  scanner.style.display =
-    "none";
-
-}
-
-
-function handleBarcode(code){
-
-  code =
-    String(code).trim();
-
-  if(!code){
-
-    result.textContent =
-      "Please enter a barcode.";
-
-    return;
-
-  }
-
-
-  currentBarcode =
-    code;
-
-  barcodeInput.value =
-    code;
-
-
-  result.innerHTML =
-    "<strong>Barcode detected:</strong><br>" +
-    code;
-
-
-  showProduct(code);
-
-}
-
-
-function showProduct(code){
-
-  productCard.style.display =
-    "block";
-
-
-  productName.textContent =
-    "Product Lookup";
-
-
-  productBarcode.innerHTML =
-    "<strong>Barcode:</strong> " +
-    code;
-
-
-  websiteStock.textContent =
-    "--";
-
-
-  physicalDisplay.textContent =
-    "--";
-
-
-  physicalCount.value =
-    "";
-
-
-  /*
-    WEBSITE PRODUCT LOOKUP
-    WILL BE CONNECTED NEXT.
-  */
-
-}
-
-
-function savePhysicalCount(){
-
-  const count =
-    Number(
-      physicalCount.value
+    showScannerStatus(
+      "❌ Camera error: " + error.message,
+      "error"
     );
+  }
+}
 
+function stopScanner() {
 
-  if(
-    physicalCount.value === "" ||
-    count < 0
-  ){
+  try {
 
-    alert(
-      "Please enter the physical stock count."
+    if (currentControls) {
+      currentControls.stop();
+      currentControls = null;
+    }
+
+  } catch (e) {
+    console.log(e);
+  }
+
+  if (reader) {
+
+    try {
+      reader.reset();
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  document.getElementById("scannerBox").style.display = "none";
+}
+
+async function handleBarcode(code) {
+
+  currentBarcode = code;
+
+  showStatus(
+    "🔎 Barcode detected: <strong>" +
+    escapeHtml(code) +
+    "</strong><br><br>Looking up product...",
+    ""
+  );
+
+  await lookupProduct(code);
+}
+
+function manualLookup() {
+
+  const input =
+    document.getElementById("manualBarcode");
+
+  const code =
+    input.value.trim();
+
+  if (!code) {
+
+    showStatus(
+      "Please enter a barcode.",
+      "warning"
     );
 
     return;
-
   }
 
+  handleBarcode(code);
+}
 
-  const existing =
-    scannedItems.find(
+async function lookupProduct(code) {
+
+  currentProduct = null;
+
+  document.getElementById("productCard").style.display = "none";
+
+  try {
+
+    const response =
+      await fetch(
+        API_URL +
+        "?barcode=" +
+        encodeURIComponent(code)
+      );
+
+    if (!response.ok) {
+
+      throw new Error(
+        "Server returned " + response.status
+      );
+    }
+
+    const data =
+      await response.json();
+
+    console.log("Product response:", data);
+
+    if (!data.found) {
+
+      showStatus(
+        "❌ Product not found.<br><br>" +
+        "Barcode: <strong>" +
+        escapeHtml(code) +
+        "</strong>",
+        "error"
+      );
+
+      return;
+    }
+
+    currentProduct = data;
+
+    document.getElementById("productCard").style.display =
+      "block";
+
+    document.getElementById("productName").textContent =
+      data.name || "Unnamed Product";
+
+    document.getElementById("productBarcode").textContent =
+      data.barcode || code;
+
+    let stock = data.stock_quantity;
+
+    if (stock === null || stock === undefined) {
+      stock = 0;
+    }
+
+    document.getElementById("websiteStock").textContent =
+      stock;
+
+    document.getElementById("physicalDisplay").textContent =
+      "-";
+
+    document.getElementById("physicalCount").value =
+      "";
+
+    document.getElementById("varianceBox").textContent =
+      "Variance: -";
+
+    showStatus(
+      "✅ Product found!<br><br>" +
+      "<strong>" +
+      escapeHtml(data.name) +
+      "</strong><br>" +
+      "Website stock: <strong>" +
+      stock +
+      "</strong>",
+      "success"
+    );
+
+    document.getElementById("physicalCount").focus();
+
+  } catch (error) {
+
+    console.error(error);
+
+    showStatus(
+      "❌ Could not connect to the stock system.<br><br>" +
+      error.message,
+      "error"
+    );
+  }
+}
+
+document
+  .getElementById("physicalCount")
+  .addEventListener("input", function() {
+
+    updateVariance();
+
+  });
+
+function updateVariance() {
+
+  if (!currentProduct) {
+    return;
+  }
+
+  const physical =
+    document.getElementById("physicalCount").value;
+
+  if (physical === "") {
+
+    document.getElementById("physicalDisplay").textContent =
+      "-";
+
+    document.getElementById("varianceBox").textContent =
+      "Variance: -";
+
+    return;
+  }
+
+  const physicalNumber =
+    Number(physical);
+
+  const website =
+    Number(currentProduct.stock_quantity || 0);
+
+  const variance =
+    physicalNumber - website;
+
+  document.getElementById("physicalDisplay").textContent =
+    physicalNumber;
+
+  let text =
+    "Variance: " +
+    (variance > 0 ? "+" : "") +
+    variance;
+
+  document.getElementById("varianceBox").textContent =
+    text;
+}
+
+function saveStockCount() {
+
+  if (!currentProduct) {
+
+    showStatus(
+      "No product selected.",
+      "warning"
+    );
+
+    return;
+  }
+
+  const physicalInput =
+    document.getElementById("physicalCount");
+
+  if (physicalInput.value === "") {
+
+    showStatus(
+      "Please enter the physical count.",
+      "warning"
+    );
+
+    physicalInput.focus();
+
+    return;
+  }
+
+  const physical =
+    Number(physicalInput.value);
+
+  const website =
+    Number(currentProduct.stock_quantity || 0);
+
+  const variance =
+    physical - website;
+
+  const item = {
+
+    id: currentProduct.id,
+
+    name: currentProduct.name,
+
+    barcode: currentProduct.barcode || currentBarcode,
+
+    sku: currentProduct.sku,
+
+    websiteStock: website,
+
+    physicalStock: physical,
+
+    variance: variance,
+
+    time: new Date().toLocaleString()
+
+  };
+
+  const existingIndex =
+    scannedItems.findIndex(
       item =>
         item.barcode ===
-        currentBarcode
+        item.barcode
     );
 
-
-  if(existing){
-
-    existing.physical =
-      count;
-
-  }
-  else{
-
-    scannedItems.push({
-
-      barcode:
-        currentBarcode,
-
-      physical:
-        count,
-
-      website:
-        null
-
-    });
-
-  }
-
-
-  physicalDisplay.textContent =
-    count;
-
+  scannedItems.push(item);
 
   updateSummary();
 
-
-  result.innerHTML =
-    "<strong>Stock count saved.</strong><br>" +
-    "Barcode: " +
-    currentBarcode +
+  showStatus(
+    "✅ Stock count saved!<br><br>" +
+    "<strong>" +
+    escapeHtml(currentProduct.name) +
+    "</strong><br>" +
+    "Website: " +
+    website +
     "<br>" +
-    "Physical stock: " +
-    count;
-
-}
-
-
-function updateSummary(){
-
-  const total =
-    scannedItems.length;
-
-
-  itemCount.textContent =
-    total +
-    (total === 1
-      ? " item"
-      : " items");
-
-
-  scannedCount.textContent =
-    total;
-
-
-  let differences =
-    0;
-
-  let matching =
-    0;
-
-
-  scannedItems.forEach(
-    item => {
-
-      if(
-        item.website !== null &&
-        item.physical !== null
-      ){
-
-        if(
-          Number(item.website) ===
-          Number(item.physical)
-        ){
-
-          matching++;
-
-        }
-        else{
-
-          differences++;
-
-        }
-
-      }
-
-    }
+    "Physical: " +
+    physical +
+    "<br>" +
+    "Variance: " +
+    (variance > 0 ? "+" : "") +
+    variance,
+    "success"
   );
 
-
-  varianceCount.textContent =
-    differences +
-    (differences === 1
-      ? " item"
-      : " items");
-
-
-  matchingCount.textContent =
-    matching;
-
-
-  differenceCount.textContent =
-    differences;
-
+  renderHistory();
 }
 
+function updateSummary() {
 
-scanButton.addEventListener(
-  "click",
-  startScanner
-);
+  document.getElementById("totalItems").textContent =
+    scannedItems.length;
 
+  const varianceCount =
+    scannedItems.filter(
+      item => item.variance !== 0
+    ).length;
 
-closeScanner.addEventListener(
-  "click",
-  stopScanner
-);
+  document.getElementById("totalVariances").textContent =
+    varianceCount;
+}
 
+function renderHistory() {
 
-manualButton.addEventListener(
-  "click",
-  () => {
+  const box =
+    document.getElementById("history");
 
-    handleBarcode(
-      barcodeInput.value
-    );
+  if (!scannedItems.length) {
 
+    box.innerHTML =
+      "No items counted yet.";
+
+    return;
   }
-);
 
+  let html = "";
 
-barcodeInput.addEventListener(
-  "keydown",
-  event => {
+  scannedItems.forEach((item, index) => {
 
-    if(event.key === "Enter"){
+    const varianceText =
+      item.variance > 0
+        ? "+" + item.variance
+        : item.variance;
 
-      handleBarcode(
-        barcodeInput.value
-      );
+    html +=
+      '<div class="history-item">' +
 
-    }
+      '<div class="history-name">' +
+      escapeHtml(item.name) +
+      '</div>' +
 
-  }
-);
+      '<div class="history-details">' +
+      'Barcode: ' +
+      escapeHtml(item.barcode) +
+      '<br>' +
+      'Website: ' +
+      item.websiteStock +
+      ' | Physical: ' +
+      item.physicalStock +
+      '<br>' +
+      'Variance: ' +
+      varianceText +
+      '</div>' +
 
+      '</div>';
 
-saveCount.addEventListener(
-  "click",
-  savePhysicalCount
-);
+  });
+
+  box.innerHTML = html;
+}
+
+function escapeHtml(value) {
+
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+
+}
 
 </script>
 
