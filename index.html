@@ -3,10 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Angling Essentials Stock Take</title>
 
 <style>
-*{box-sizing:border-box}
+
+*{
+  box-sizing:border-box;
+}
 
 body{
   margin:0;
@@ -57,6 +61,79 @@ body{
   margin-bottom:10px;
 }
 
+.scanner{
+  display:none;
+  margin-top:16px;
+  background:#111827;
+  padding:14px;
+  border-radius:20px;
+  color:white;
+}
+
+#camera{
+  width:100%;
+  border-radius:14px;
+  background:#000;
+  display:block;
+}
+
+.scanner-title{
+  font-size:20px;
+  font-weight:bold;
+  margin-bottom:10px;
+}
+
+.status{
+  margin-top:12px;
+  padding:12px;
+  border-radius:10px;
+  background:#eef2f7;
+  color:#17202a;
+  font-size:14px;
+}
+
+.close-button{
+  width:100%;
+  margin-top:10px;
+  padding:14px;
+  border:0;
+  border-radius:12px;
+  font-size:16px;
+  font-weight:bold;
+}
+
+.manual{
+  margin-top:14px;
+  background:white;
+  padding:18px;
+  border-radius:16px;
+  box-shadow:0 3px 12px rgba(0,0,0,.06);
+}
+
+.manual h3{
+  margin-top:0;
+}
+
+.manual input{
+  width:100%;
+  padding:14px;
+  border:1px solid #ccc;
+  border-radius:10px;
+  font-size:17px;
+  margin-bottom:10px;
+}
+
+.manual button{
+  width:100%;
+  padding:14px;
+  border:0;
+  border-radius:10px;
+  background:#111827;
+  color:white;
+  font-size:16px;
+  font-weight:bold;
+}
+
 .cards{
   display:grid;
   grid-template-columns:1fr 1fr;
@@ -95,81 +172,86 @@ body{
   font-size:20px;
 }
 
-.scanner{
-  display:none;
-  margin-top:16px;
-  background:#111827;
-  padding:14px;
-  border-radius:20px;
-  color:white;
-}
-
-#camera{
-  width:100%;
-  border-radius:14px;
-  background:#000;
-}
-
-.scanner-title{
-  font-size:20px;
-  font-weight:bold;
-  margin-bottom:10px;
-}
-
-.close-button{
-  width:100%;
-  margin-top:10px;
-  padding:14px;
-  border:0;
-  border-radius:12px;
-  font-size:16px;
-  font-weight:bold;
-}
-
-.manual{
+.product{
   margin-top:14px;
   background:white;
   padding:18px;
   border-radius:16px;
+  box-shadow:0 3px 12px rgba(0,0,0,.06);
 }
 
-.manual h3{
+.product h2{
   margin-top:0;
 }
 
-.manual input{
+.stock-box{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:12px;
+}
+
+.stock{
+  padding:15px;
+  border-radius:12px;
+  background:#f3f5f7;
+  text-align:center;
+}
+
+.stock strong{
+  display:block;
+  font-size:25px;
+  margin-top:5px;
+}
+
+.quantity{
+  margin-top:12px;
+}
+
+.quantity label{
+  display:block;
+  font-weight:bold;
+  margin-bottom:6px;
+}
+
+.quantity input{
   width:100%;
   padding:14px;
   border:1px solid #ccc;
   border-radius:10px;
-  font-size:17px;
-  margin-bottom:10px;
+  font-size:20px;
+  text-align:center;
 }
 
-.manual button{
+.save-button{
   width:100%;
-  padding:14px;
+  margin-top:12px;
+  padding:15px;
   border:0;
-  border-radius:10px;
+  border-radius:12px;
   background:#111827;
   color:white;
-  font-size:16px;
+  font-size:17px;
   font-weight:bold;
 }
 
-.status{
-  margin-top:12px;
-  padding:12px;
-  border-radius:10px;
-  background:#eef2f7;
-  font-size:14px;
+@media(max-width:400px){
+
+  .app{
+    padding:12px;
+  }
+
+  .header h1{
+    font-size:22px;
+  }
+
 }
 
-@media(max-width:400px){
-  .app{padding:12px}
-  .header h1{font-size:22px}
-}
 </style>
+
+<!-- Barcode Scanner Library -->
+<script src="https://unpkg.com/@zxing/browser@latest/umd/index.min.js"></script>
+
 </head>
 
 <body>
@@ -177,35 +259,53 @@ body{
 <div class="app">
 
   <div class="header">
+
     <h1>🎣 Angling Essentials</h1>
-    <p>Stock Take System</p>
+
+    <p>Stock Take System — Version 2</p>
+
   </div>
 
+
   <button class="scan-button" id="scanButton" type="button">
+
     <span class="scan-icon">📷</span>
+
     SCAN ITEM
+
     <small style="display:block;margin-top:8px;font-size:13px;font-weight:normal;color:#667085">
+
       Scan a product barcode
+
     </small>
+
   </button>
+
 
   <div class="scanner" id="scanner">
 
     <div class="scanner-title">
+
       📷 Scan Barcode
+
     </div>
 
     <video id="camera" autoplay playsinline></video>
 
     <div class="status" id="scanStatus">
-      Point your camera at a product barcode.
+
+      Point the camera at the barcode.
+
     </div>
 
     <button class="close-button" id="closeScanner" type="button">
+
       ✕ Close Scanner
+
     </button>
 
   </div>
+
 
   <div class="manual">
 
@@ -219,30 +319,102 @@ body{
     >
 
     <button id="manualButton" type="button">
+
       FIND PRODUCT
+
     </button>
 
     <div class="status" id="result">
+
       No product scanned yet.
+
     </div>
 
   </div>
+
+
+  <div class="product" id="productCard" style="display:none;">
+
+    <h2 id="productName">
+
+      Product
+
+    </h2>
+
+    <div id="productBarcode"></div>
+
+    <div class="stock-box">
+
+      <div class="stock">
+
+        Website Stock
+
+        <strong id="websiteStock">--</strong>
+
+      </div>
+
+      <div class="stock">
+
+        Physical Count
+
+        <strong id="physicalDisplay">--</strong>
+
+      </div>
+
+    </div>
+
+    <div class="quantity">
+
+      <label for="physicalCount">
+
+        Enter Physical Count
+
+      </label>
+
+      <input
+        id="physicalCount"
+        type="number"
+        min="0"
+        inputmode="numeric"
+        placeholder="0"
+      >
+
+    </div>
+
+    <button class="save-button" id="saveCount">
+
+      💾 SAVE STOCK COUNT
+
+    </button>
+
+  </div>
+
 
   <div class="cards">
 
     <div class="card">
+
       <div class="card-icon">📦</div>
+
       <strong>Stock Take</strong>
+
       <span id="itemCount">0 items</span>
+
     </div>
 
+
     <div class="card">
+
       <div class="card-icon">⚠️</div>
+
       <strong>Variances</strong>
+
       <span id="varianceCount">0 items</span>
+
     </div>
 
   </div>
+
 
   <div class="summary">
 
@@ -267,195 +439,370 @@ body{
 
 </div>
 
+
 <script>
 
-let stream = null;
-let scanning = false;
+let scannerControls = null;
+
 let scannedItems = [];
 
-const scanButton = document.getElementById("scanButton");
-const scanner = document.getElementById("scanner");
-const camera = document.getElementById("camera");
-const closeScanner = document.getElementById("closeScanner");
-const scanStatus = document.getElementById("scanStatus");
+let currentBarcode = "";
 
-const barcodeInput = document.getElementById("barcodeInput");
-const manualButton = document.getElementById("manualButton");
-const result = document.getElementById("result");
 
-const itemCount = document.getElementById("itemCount");
-const varianceCount = document.getElementById("varianceCount");
-const scannedCount = document.getElementById("scannedCount");
+const scanButton =
+  document.getElementById("scanButton");
 
-async function startScanner(){
+const scanner =
+  document.getElementById("scanner");
+
+const camera =
+  document.getElementById("camera");
+
+const closeScanner =
+  document.getElementById("closeScanner");
+
+const scanStatus =
+  document.getElementById("scanStatus");
+
+const barcodeInput =
+  document.getElementById("barcodeInput");
+
+const manualButton =
+  document.getElementById("manualButton");
+
+const result =
+  document.getElementById("result");
+
+const productCard =
+  document.getElementById("productCard");
+
+const productName =
+  document.getElementById("productName");
+
+const productBarcode =
+  document.getElementById("productBarcode");
+
+const websiteStock =
+  document.getElementById("websiteStock");
+
+const physicalCount =
+  document.getElementById("physicalCount");
+
+const physicalDisplay =
+  document.getElementById("physicalDisplay");
+
+const saveCount =
+  document.getElementById("saveCount");
+
+const itemCount =
+  document.getElementById("itemCount");
+
+const varianceCount =
+  document.getElementById("varianceCount");
+
+const scannedCount =
+  document.getElementById("scannedCount");
+
+const matchingCount =
+  document.getElementById("matchingCount");
+
+const differenceCount =
+  document.getElementById("differenceCount");
+
+
+function startScanner(){
 
   scanner.style.display = "block";
-  scanStatus.textContent = "Starting camera...";
 
-  if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){
-    scanStatus.textContent =
-      "Camera scanning is not supported here. Use Manual Barcode below.";
-    return;
-  }
+  scanStatus.textContent =
+    "Starting camera...";
 
   try{
 
-    stream = await navigator.mediaDevices.getUserMedia({
-      video:{
-        facingMode:{
-          ideal:"environment"
-        }
-      },
-      audio:false
-    });
+    const reader =
+      new ZXingBrowser.BrowserMultiFormatReader();
 
-    camera.srcObject = stream;
+    scannerControls =
+      reader.decodeFromVideoDevice(
+        undefined,
+        camera,
+        (resultCode, error) => {
+
+          if(resultCode){
+
+            const code =
+              resultCode.getText();
+
+            if(code){
+
+              scannerControls.stop();
+
+              scannerControls = null;
+
+              scanner.style.display = "none";
+
+              handleBarcode(code);
+
+            }
+
+          }
+
+        }
+      );
 
     scanStatus.textContent =
       "Point the camera at the barcode.";
-
-    scanning = true;
-
-    if("BarcodeDetector" in window){
-
-      const detector = new BarcodeDetector({
-        formats:[
-          "ean_13",
-          "ean_8",
-          "upc_a",
-          "upc_e",
-          "code_128",
-          "code_39"
-        ]
-      });
-
-      scanLoop(detector);
-
-    }else{
-
-      scanStatus.textContent =
-        "Camera opened. Automatic barcode detection is not supported by this browser. Use Manual Barcode below.";
-
-    }
-
-  }catch(error){
-
-    scanStatus.textContent =
-      "Camera permission was not available. Please allow camera access or use Manual Barcode.";
-
-  }
-
-}
-
-async function scanLoop(detector){
-
-  if(!scanning) return;
-
-  try{
-
-    const barcodes = await detector.detect(camera);
-
-    if(barcodes.length > 0){
-
-      const code = barcodes[0].rawValue;
-
-      if(code){
-
-        scanning = false;
-
-        barcodeInput.value = code;
-
-        handleBarcode(code);
-
-        stopScanner();
-
-        return;
-      }
-    }
 
   }catch(error){
 
     console.log(error);
 
+    scanStatus.textContent =
+      "Unable to start camera. Please allow camera access.";
+
   }
 
-  requestAnimationFrame(() => scanLoop(detector));
-
 }
+
 
 function stopScanner(){
 
-  scanning = false;
+  if(scannerControls){
 
-  if(stream){
+    try{
 
-    stream.getTracks().forEach(track => track.stop());
+      scannerControls.stop();
 
-    stream = null;
+    }catch(error){
+
+      console.log(error);
+
+    }
+
+    scannerControls = null;
 
   }
-
-  camera.srcObject = null;
-}
-
-function handleBarcode(code){
-
-  code = String(code).trim();
-
-  if(!code){
-
-    result.textContent = "Please enter a barcode.";
-    return;
-  }
-
-  result.innerHTML =
-    "<strong>Barcode scanned:</strong><br>" +
-    code +
-    "<br><br>" +
-    "Product lookup will be connected to the Angling Essentials website in the next step.";
-
-  scannedItems.push(code);
-
-  updateSummary();
-
-}
-
-function updateSummary(){
-
-  const total = scannedItems.length;
-
-  itemCount.textContent =
-    total + (total === 1 ? " item" : " items");
-
-  scannedCount.textContent = total;
-
-}
-
-scanButton.addEventListener("click", startScanner);
-
-closeScanner.addEventListener("click", () => {
-
-  stopScanner();
 
   scanner.style.display = "none";
 
-});
+}
 
-manualButton.addEventListener("click", () => {
 
-  handleBarcode(barcodeInput.value);
+function handleBarcode(code){
 
-});
+  code =
+    String(code).trim();
 
-barcodeInput.addEventListener("keydown", event => {
+  if(!code){
 
-  if(event.key === "Enter"){
+    result.textContent =
+      "Please enter a barcode.";
 
-    handleBarcode(barcodeInput.value);
+    return;
 
   }
 
-});
+  currentBarcode =
+    code;
+
+  barcodeInput.value =
+    code;
+
+  result.innerHTML =
+    "<strong>Barcode detected:</strong><br>" +
+    code;
+
+  showProduct(code);
+
+}
+
+
+function showProduct(code){
+
+  productCard.style.display =
+    "block";
+
+  productName.textContent =
+    "Product Lookup";
+
+  productBarcode.innerHTML =
+    "<strong>Barcode:</strong> " + code;
+
+  websiteStock.textContent =
+    "--";
+
+  physicalDisplay.textContent =
+    "--";
+
+  physicalCount.value =
+    "";
+
+  /*
+    WEBSITE CONNECTION WILL BE
+    ADDED IN THE NEXT STEP.
+  */
+
+}
+
+
+function savePhysicalCount(){
+
+  const count =
+    Number(physicalCount.value);
+
+  if(
+    physicalCount.value === "" ||
+    count < 0
+  ){
+
+    alert(
+      "Please enter the physical stock count."
+    );
+
+    return;
+
+  }
+
+  const existing =
+    scannedItems.find(
+      item => item.barcode === currentBarcode
+    );
+
+  if(existing){
+
+    existing.physical =
+      count;
+
+  }else{
+
+    scannedItems.push({
+
+      barcode:
+        currentBarcode,
+
+      physical:
+        count,
+
+      website:
+        null
+
+    });
+
+  }
+
+  physicalDisplay.textContent =
+    count;
+
+  updateSummary();
+
+  result.innerHTML =
+    "<strong>Stock count saved.</strong><br>" +
+    "Barcode: " +
+    currentBarcode +
+    "<br>" +
+    "Physical stock: " +
+    count;
+
+}
+
+
+function updateSummary(){
+
+  const total =
+    scannedItems.length;
+
+  itemCount.textContent =
+    total +
+    (total === 1 ? " item" : " items");
+
+  scannedCount.textContent =
+    total;
+
+  let differences = 0;
+
+  let matching = 0;
+
+  scannedItems.forEach(item => {
+
+    if(
+      item.website !== null &&
+      item.physical !== null
+    ){
+
+      if(
+        Number(item.website) ===
+        Number(item.physical)
+      ){
+
+        matching++;
+
+      }else{
+
+        differences++;
+
+      }
+
+    }
+
+  });
+
+  varianceCount.textContent =
+    differences +
+    (differences === 1 ? " item" : " items");
+
+  matchingCount.textContent =
+    matching;
+
+  differenceCount.textContent =
+    differences;
+
+}
+
+
+scanButton.addEventListener(
+  "click",
+  startScanner
+);
+
+
+closeScanner.addEventListener(
+  "click",
+  stopScanner
+);
+
+
+manualButton.addEventListener(
+  "click",
+  () => {
+
+    handleBarcode(
+      barcodeInput.value
+    );
+
+  }
+);
+
+
+barcodeInput.addEventListener(
+  "keydown",
+  event => {
+
+    if(event.key === "Enter"){
+
+      handleBarcode(
+        barcodeInput.value
+      );
+
+    }
+
+  }
+);
+
+
+saveCount.addEventListener(
+  "click",
+  savePhysicalCount
+);
 
 </script>
 
