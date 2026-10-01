@@ -988,22 +988,18 @@ function loadStockTakeProgress() {
   }
 }
 
-const saveButton =
-  document.querySelector(
+document.addEventListener("click", function(event) {
+  const button = event.target.closest(
     'button[onclick="saveStockCount()"]'
   );
 
-if (saveButton) {
-  saveButton.addEventListener(
-    "click",
-    function() {
-      setTimeout(
-        saveStockTakeProgress,
-        100
-      );
-    }
-  );
-}
+  if (button) {
+    setTimeout(
+      saveStockTakeProgress,
+      100
+    );
+  }
+});
 
 loadStockTakeProgress();
 </script>
