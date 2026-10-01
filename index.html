@@ -959,6 +959,53 @@ function addExportButton() {
 }
 
 addExportButton();
+
+
+  function saveStockTakeProgress() {
+  localStorage.setItem(
+    "anglingEssentialsStockTake",
+    JSON.stringify(scannedItems)
+  );
+}
+
+function loadStockTakeProgress() {
+  const saved =
+    localStorage.getItem("anglingEssentialsStockTake");
+
+  if (!saved) {
+    return;
+  }
+
+  try {
+    scannedItems = JSON.parse(saved);
+    updateSummary();
+    renderHistory();
+  } catch (error) {
+    console.error(
+      "Could not load saved stock take:",
+      error
+    );
+  }
+}
+
+const saveButton =
+  document.querySelector(
+    'button[onclick="saveStockCount()"]'
+  );
+
+if (saveButton) {
+  saveButton.addEventListener(
+    "click",
+    function() {
+      setTimeout(
+        saveStockTakeProgress,
+        100
+      );
+    }
+  );
+}
+
+loadStockTakeProgress();
 </script>
 
 </body>
